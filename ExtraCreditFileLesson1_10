@@ -1,0 +1,123 @@
+#Lesson1
+SELECT title FROM movies;
+SELECT director FROM movies;
+SELECT title, director FROM movies;
+SELECT title, year FROM movies;
+SELECT * FROM movies;
+#Lesson2
+SELECT id, title FROM movies 
+WHERE id = 6;
+
+SELECT title FROM movies 
+WHERE year BETWEEN 2000 and 2010;
+
+SELECT title FROM movies 
+WHERE year NOT BETWEEN 2000 and 2010;
+
+SELECT id, title FROM movies 
+WHERE id BETWEEN 0 and 5;
+#Lesson3
+SELECT title, director FROM movies 
+WHERE title LIKE "Toy Story%";
+
+SELECT title, director FROM movies 
+WHERE director LIKE "John Lasseter%";
+
+SELECT title, director FROM movies 
+WHERE director != "John Lasseter";
+
+SELECT title FROM movies 
+WHERE title LIKE "WALL%";
+#Lesson4
+SELECT DISTINCT director FROM movies
+ORDER BY director ASC;
+
+
+SELECT title, year FROM movies
+ORDER BY year DESC
+LIMIT 4;
+
+SELECT title, year FROM movies
+ORDER BY title ASC
+LIMIT 5;
+
+SELECT title FROM movies
+ORDER BY title ASC
+LIMIT 5 OFFSET 5;
+Lesson#5
+SELECT Country, city, population FROM north_american_cities
+WHERE Country LIKE "Canada%";
+
+SELECT Country, city, latitude FROM north_american_cities
+WHERE Country LIKE "United States" ORDER BY latitude DESC;
+
+SELECT city, longitude FROM north_american_cities
+WHERE longitude < -87.629798
+ORDER BY longitude ASC;
+
+
+SELECT Country, city, population FROM north_american_cities
+WHERE Country LIKE "MEXICO%" ORDER BY population DESC limit 2;
+
+SELECT Country, city, population FROM north_american_cities
+WHERE Country LIKE "United States%" ORDER BY population DESC limit 2 offset 2;
+#Lesson6
+SELECT title, domestic_sales, international_sales 
+FROM movies
+  JOIN boxoffice
+    ON movies.id = boxoffice.movie_id;
+
+SELECT title, domestic_sales, international_sales 
+FROM movies
+  JOIN boxoffice
+    ON movies.id = boxoffice.movie_id WHERE international_sales > domestic_sales;
+
+SELECT title, rating
+FROM movies
+  JOIN boxoffice
+    ON movies.id = boxoffice.movie_id WHERE rating ORDER BY rating DESC;
+#Lesson7
+SELECT DISTINCT building FROM employees;
+
+SELECT DISTINCT building_name, role 
+FROM buildings 
+  LEFT JOIN employees
+    ON building_name = building;
+
+SELECT * FROM buildings;
+#Lesson8
+SELECT name, role FROM employees
+WHERE building IS NULL;
+
+SELECT DISTINCT building_name
+FROM buildings 
+  LEFT JOIN employees
+    ON building_name = building
+WHERE role IS NULL;
+#Lesson9
+SELECT title, (domestic_sales + international_sales) / 1000000 AS gross_sales_millions
+FROM movies
+  JOIN boxoffice
+    ON movies.id = boxoffice.movie_id;
+
+SELECT title, rating * 10 AS rating_percent
+FROM movies
+  JOIN boxoffice
+    ON movies.id = boxoffice.movie_id;
+
+SELECT title, year
+FROM movies
+WHERE year % 2 = 0;                          
+#To only find even number years^^
+#Lesson10
+SELECT MAX(years_employed) as Max_years_employed
+FROM employees;
+
+SELECT role, name, AVG(years_employed) as AVE_years_employed
+FROM employees
+GROUP BY role;
+
+SELECT role, name, building, SUM(years_employed) as SUM_years_employed
+FROM employees
+GROUP BY building;
+
